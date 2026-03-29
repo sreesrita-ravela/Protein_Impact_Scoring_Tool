@@ -17,8 +17,13 @@ public class Main {
 
         BufferedReader inputFile = new BufferedReader(new FileReader(file));
         String line;
-        String topName = "";
-        double topScore = -1;
+
+        String bestName = "";
+        String bestCategory = "";
+        double bestScore = -1;
+
+        System.out.println();
+        System.out.println("Ranked results:");
 
         while ((line = inputFile.readLine()) != null) {
             if (line.trim().isEmpty() || line.startsWith("Name")) {
@@ -26,19 +31,28 @@ public class Main {
             }
 
             String[] parts = line.split(",");
-            if (parts.length < 2) {
+            if (parts.length < 3) {
                 continue;
             }
 
             String name = parts[0].trim();
-            double value = Double.parseDouble(parts[1].trim());
-            double score = value + 5;
+            String category = parts[1].trim();
+            double value = Double.parseDouble(parts[2].trim());
 
-            System.out.println(name + " -> score: " + score);
+            double score = value * 2;
 
-            if (score > topScore) {
-                topScore = score;
-                topName = name;
+            if (category.equalsIgnoreCase("Exercise")) {
+                score = score + 1;
+            } else if (category.equalsIgnoreCase("NaturalCompound")) {
+                score = score + 2;
+            }
+
+            System.out.println(name + " | " + category + " | impact score: " + score);
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestName = name;
+                bestCategory = category;
             }
         }
 
@@ -46,7 +60,7 @@ public class Main {
         keyboard.close();
 
         System.out.println();
-        System.out.println("Top-ranked item: " + topName);
-        System.out.println("Top score: " + topScore);
+        System.out.println("Top-ranked item: " + bestName + " (" + bestCategory + ")");
+        System.out.println("Highest impact score: " + bestScore);
     }
 }
