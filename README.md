@@ -1,2 +1,1 @@
-# Protein_Impact_Scoring_Tool
-Takes a list of proteins and p-values. Converts p-values into a normalized impact score; ranks proteins by potential significance.
+This beginner Java project reads a file, compares several inputs, and ranks them by a simple impact score.
